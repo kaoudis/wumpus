@@ -22,7 +22,7 @@ class CanBeInRoom
             @threat = true
             when 3
             stuff_type = rand(0..5)
-            stuff_type case
+            case stuff_type
                 when 0
                 stuff = "Chocolate"
                 @threat = false
@@ -56,43 +56,55 @@ class CanBeInRoom
     end
 
     def get_type
-        @type
+        return @type
     end
 
     def get_power_level
-        @power_level
+        return @power_level
     end
 
     def get_article
-        @article
+        return @article
     end
 
     def is_threat?
-        @threat
+        return @threat
     end
 
     def acquire
         unless self.is_threat?
-            self
+            return self
         end
     end
 end
 
 class Room
+    @number = -1
+    @hazards = []
+    @neighboring_rooms = []
+
     def initialize(number, hazards, neighboring_rooms)
         @number = number
         @hazards = hazards
         @neighboring_rooms = neighboring_rooms
     end
 
-    def explore()
-        puts "This room is No. #{@number} and it has: "
+    def explore
+        puts "This room is No. #{get_number()} and it has: "
         @hazards.each do |h|
             puts "   - #{h.get_article} #{h.get_type} with Power Level #{h.get_power_level}"
             puts "(threatening you!)" if h.is_threat?
         end
         puts "   - #{@neighboring_rooms.length} doors leading elsewhere"
         puts "\n\nWhat would you like to do?"
+    end
+
+    def get_number
+        return @number
+    end
+
+    def get_hazards
+        return @hazards
     end
 end
 

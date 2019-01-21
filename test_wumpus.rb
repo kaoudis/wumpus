@@ -6,15 +6,15 @@ require './wumpus'
 describe Room do
     let(:simple_room) {Room.new(0, Array.new(2) { CanBeInRoom.new() }, [])}
 
-    it "has a number" do
-        simple_room.number.must_equal(0)
+    it "a simple room has a number" do
+        expect(simple_room.get_number()).to equal(0)
     end
 
-    it "may contain items" do
-        simple_room.hazards.exists?.must_equal(true)
-        simple_room.hazards.each do |hazard|
-            hazard.type.exists?.must_equal(true)
-            hazard.power_level.exists?.must_equal(true)
+    it "a simple room may contain hazardous items" do
+        expect(simple_room.get_hazards().empty?).to be false
+        simple_room.get_hazards().each do |hazard|
+            expect(hazard.get_type().empty?).to be false
+            expect(hazard.get_power_level()).to be > 0
         end
     end
 
